@@ -1,11 +1,13 @@
 ﻿namespace JobApplications.Database.Data
 {
-    using JobApplications.Database.Models;
+    using System.Data.Entity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity;
+    using Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Application> Applications { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
