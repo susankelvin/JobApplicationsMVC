@@ -1,6 +1,5 @@
 ﻿namespace JobApplications.Database.Data.Interfaces
 {
-    using Data;
     using Models;
 
     public interface IData
