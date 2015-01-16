@@ -5,7 +5,7 @@
 
     public class Application
     {
-        public int Applicationid { get; set; }
+        public int ApplicationId { get; set; }
 
         [Required]
         public string AuthorId { get; set; }
