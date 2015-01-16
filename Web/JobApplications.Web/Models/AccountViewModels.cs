@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace JobApplications.Web.Models
+﻿namespace JobApplications.Web.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -49,9 +49,8 @@ namespace JobApplications.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -65,19 +64,22 @@ namespace JobApplications.Web.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [MinLength(4, ErrorMessage = "{0} should have at least {1} characters")]
+        [MaxLength(20, ErrorMessage = "{0} should have at most {1} characters")]
+        [RegularExpression(@"^[\w@%\.]+$", ErrorMessage = "Allowed characters: a-zA-Z0-9_@%.")]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 4)]
+        [RegularExpression(@"^\w+$", ErrorMessage = "Allowed characters: a-zA-Z0-9_")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Content does not match the Password field.")]
         public string ConfirmPassword { get; set; }
     }
 
