@@ -7,6 +7,7 @@
     using System.Web.Routing;
     using Database.Data;
     using Database.Data.Migrations;
+    using Infrastructure;
 
     public class MvcApplication : HttpApplication
     {
@@ -22,6 +23,8 @@
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
+
+            AutoMapperConfiguration.Execute();
         }
     }
 }
