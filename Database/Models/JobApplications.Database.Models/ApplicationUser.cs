@@ -6,12 +6,11 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        private IEnumerable<Application> applications;
+        private ICollection<Application> applications;
 
-        public virtual IEnumerable<Application> Applications
+        public virtual ICollection<Application> Applications
         {
             get
             {
@@ -26,7 +25,7 @@
         public ApplicationUser()
             : base()
         {
-            this.applications = new List<Application>();
+            this.applications = new HashSet<Application>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
