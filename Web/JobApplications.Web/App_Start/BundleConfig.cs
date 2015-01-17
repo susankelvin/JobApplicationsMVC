@@ -22,9 +22,15 @@
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
+                        "~/Scripts/jquery-ui-1.11.2.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.united.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/jquery-ui").Include(
+                    "~/Content/themes/blitzer/jquery-ui.blitzer.css"));
         }
     }
 }
