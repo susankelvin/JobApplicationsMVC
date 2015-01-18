@@ -12,6 +12,8 @@
             Mapper.CreateMap<ApplicationNewViewModel, Application>()
                 .ForMember(a => a.OfferDate, opt => opt.ResolveUsing<StringToDateResolver>()
                     .FromMember(a => a.OfferDate));
+
+            Mapper.CreateMap<Application, ApplicationTableViewModel>();
         }
     }
 }

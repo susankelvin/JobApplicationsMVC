@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using JobApplications.Database.Data.Interfaces;
 using JobApplications.Database.Models;
 using JobApplications.Web.Controllers.Base;
@@ -16,6 +20,8 @@ namespace JobApplications.Web.Controllers
     [Authorize]
     public class ApplicationController : BaseController
     {
+        private const int PAGE_SIZE = 2;
+
         public ApplicationController(IData data) :
             base(data)
         {
@@ -24,7 +30,15 @@ namespace JobApplications.Web.Controllers
         // GET: Application
         public ActionResult Index()
         {
-            return View();
+            ApplicationIndexViewModel result = this.FilterApplications("", 0);
+            return View(result);
+        }
+
+        // AJAX update
+        public ActionResult Update(string search, int? page)
+        {
+            ApplicationIndexViewModel result = this.FilterApplications(search, page ?? 0);
+            return PartialView("_applicationTable", result);
         }
 
         // GET: New
@@ -60,6 +74,31 @@ namespace JobApplications.Web.Controllers
             }
 
             return View(model);
+        }
+
+        private ApplicationIndexViewModel FilterApplications(string search, int page)
+        {
+            string userId = this.User.Identity.GetUserId();
+            var query = this.Data.Applications.All()
+                .Where(a => a.AuthorId == userId);
+
+            if (!String.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(a => a.Position.Contains(search) || a.Company.Contains(search));
+            }
+
+            ApplicationIndexViewModel result = new ApplicationIndexViewModel
+            {
+                Count = query.Count(),
+                Page = page,
+                Items = query.OrderByDescending(a => a.ApplicationDate)
+                    .Skip(page * PAGE_SIZE)
+                    .Take(PAGE_SIZE)
+                    .Project()
+                    .To<ApplicationTableViewModel>()
+                    .ToList()
+            };
+            return result;
         }
     }
 }

@@ -11,3 +11,4 @@
 /// <reference path="jquery-ui-1.11.2.min.js" />
 /// <reference path="moment-with-locales.min.js" />
 /// <reference path="moment.min.js" />
+/// <reference path="jquery.unobtrusive-ajax.min.js" />

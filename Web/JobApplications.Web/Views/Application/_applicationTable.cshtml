@@ -1,0 +1,92 @@
+﻿@model JobApplications.Web.Models.Applications.ApplicationIndexViewModel
+
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Company</th>
+                <th>Apllied on</th>
+                <th>Notes</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Items.Count() > 0)
+            {
+                foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Position</td>
+                        <td>@item.Company</td>
+                        <td>@item.ApplicationDate</td>
+                        <td>@item.Notes</td>
+                        <td></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="5">No items</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.Items.Count() > 0)
+    {
+        <div class="row text-center">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a href="#" title="First" data-page="0">&laquo;</a>
+                    </li>
+                    <li>
+                        <a href="#" title="Previous" data-page="@(Model.Page > 0 ? Model.Page - 1 : 0)">&lsaquo;</a>
+                    </li>
+
+                    @{
+                        const int PAGE_SIZE = 2;
+                        const int PAGER_SIZE = 8;
+                        int pageCount = Model.Count / PAGE_SIZE;
+                        if (Model.Count % PAGE_SIZE != 0)
+                        {
+                            pageCount++;
+                        }
+
+                        int start = 0;
+                        if (pageCount > PAGER_SIZE)
+                        {
+                            start = Model.Page - (PAGER_SIZE / 2);
+                            if (start < 0)
+                            {
+                                start = 0;
+                            }
+                            else if (start + PAGER_SIZE > pageCount)
+                            {
+                                start = pageCount - PAGER_SIZE;
+                            }
+                        }
+
+                        int pageDisplayCount = Math.Min(PAGER_SIZE, pageCount);
+                    }
+
+                    @for (var i = start; i < pageDisplayCount; i++)
+                    {
+                        <li class=@(Model.Page == i ? "active" : "")>
+                            <a href="#" data-page="@i" title="Page @(i + 1)">@(i + 1)</a>
+                        </li>
+                    }
+
+                    <li>
+                        <a href="#" title="Next" data-page="@(Model.Page < pageCount - 1 ? Model.Page + 1 : pageCount - 1)">&rsaquo;</a>
+                    </li>
+                    <li>
+                        <a href="#" title="Last" data-page="@(pageCount - 1)">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>
