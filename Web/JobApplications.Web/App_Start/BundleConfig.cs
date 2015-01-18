@@ -7,6 +7,24 @@
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            RegisterStyles(bundles);
+            RegisterScripts(bundles);
+        }
+
+        private static void RegisterStyles(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                    "~/Content/bootstrap.united.css",
+                    "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/jquery-ui").Include(
+                    "~/Content/themes/base/all.css",
+                    "~/Content/themes/blitzer/jquery-ui.blitzer.css"
+                    ));
+        }
+
+        private static void RegisterScripts(BundleCollection bundles)
+        {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -25,12 +43,8 @@
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
                         "~/Scripts/jquery-ui-1.11.2.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.united.css",
-                      "~/Content/site.css"));
-
-            bundles.Add(new StyleBundle("~/Content/jquery-ui").Include(
-                    "~/Content/themes/blitzer/jquery-ui.blitzer.css"));
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+                        "~/Scripts/moment-with-locales.js"));
         }
     }
 }
