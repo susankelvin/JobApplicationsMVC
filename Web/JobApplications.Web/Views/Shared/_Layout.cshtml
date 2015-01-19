@@ -24,8 +24,8 @@
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("History", "Index", "Application")</li>
-                        <li>@Html.ActionLink("New", "New", "Application")</li>
+                        <li>@Html.ActionLink("History", "Index", "Application", null, new { title = "History" })</li>
+                        <li>@Html.ActionLink("New", "New", "Application", null, new { title = "New" })</li>
                     </ul>
                 }
                 @Html.Partial("_LoginPartial")
@@ -40,11 +40,12 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p class="text-center">&copy; @DateTime.Now.Year</p>
-        </footer>
     </div>
+
+    <hr />
+    <footer>
+        <p class="text-center">&copy; @DateTime.Now.Year</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
