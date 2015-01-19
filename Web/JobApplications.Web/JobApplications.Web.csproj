@@ -191,9 +191,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AutoMapperConfiguration.cs" />
+    <Compile Include="Infrastructure\Resolvers\DateTimeToIsoStringResolver.cs" />
     <Compile Include="Infrastructure\Resolvers\DateTimeToLongDateStringResolver.cs" />
     <Compile Include="Infrastructure\Resolvers\StringToDateResolver.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Applications\ApplicationEditViewModel.cs" />
     <Compile Include="Models\Applications\ApplicationIndexViewModel.cs" />
     <Compile Include="Models\Applications\ApplicationNewViewModel.cs" />
     <Compile Include="Models\Applications\ApplicationTableViewModel.cs" />
@@ -331,10 +333,9 @@
     <Content Include="Views\Application\New.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
     <Content Include="Views\Application\_applicationTable.cshtml" />
+    <Content Include="Views\Application\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

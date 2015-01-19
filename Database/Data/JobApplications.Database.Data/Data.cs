@@ -26,7 +26,6 @@
             get
             {
                 return this.context;
-
             }
         }
 
@@ -35,7 +34,6 @@
             get
             {
                 return this.GetRepository<ApplicationUser>();
-
             }
         }
 
@@ -44,7 +42,6 @@
             get
             {
                 return this.GetRepository<Application>();
-
             }
         }
 

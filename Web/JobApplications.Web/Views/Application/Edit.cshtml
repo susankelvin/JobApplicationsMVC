@@ -1,21 +1,22 @@
 ﻿@using System.Threading
-@using JobApplications.Web.Models.Applications
-@model ApplicationNewViewModel
+@model JobApplications.Web.Models.Applications.ApplicationEditViewModel
 @{
-    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit";
 }
 
 @section Styles {
     @Styles.Render("~/Content/jquery-ui")
 }
 
-<h1>New application</h1>
+<h1>Edit application</h1>
 <br />
 
-@using (Html.BeginForm("New", "Application", FormMethod.Post, new { id = "frmNew", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Edit", "Application", FormMethod.Post, new { id = "frmEdit", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(m => m.ApplicationId)
     <div class="form-group">
         @Html.LabelFor(m => m.Position, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -35,6 +36,26 @@
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Company, new { @class = "form-control", placeholder = "Company" })
             @Html.ValidationMessageFor(m => m.Company, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ApplicationDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ApplicationDate, new { id = "tbxApplicationDate", @class = "form-control", placeholder = "Application date" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Notes, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", rows = "5", placeholder = "Notes" })
+            @Html.ValidationMessageFor(m => m.Notes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Contacts, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Contacts, new { @class = "form-control", placeholder = "Contacts" })
+            @Html.ValidationMessageFor(m => m.Contacts, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
@@ -59,13 +80,6 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Contacts, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Contacts, new { @class = "form-control", placeholder = "Contacts" })
-            @Html.ValidationMessageFor(m => m.Contacts, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
         @Html.LabelFor(m => m.OfferDate, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.OfferDate, new { id = "tbxOfferDate", @class = "form-control", placeholder = "Offer date" })
@@ -73,15 +87,14 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Notes, new { @class = "control-label col-md-2" })
+        @Html.LabelFor(m => m.Result, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", rows = "5", placeholder = "Notes" })
-            @Html.ValidationMessageFor(m => m.Notes, "", new { @class = "text-danger" })
+            @Html.TextAreaFor(m => m.Result, new { @class = "form-control col-md-10", rows = "5" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-10 col-md-offset-2">
-            <input type="submit" class="btn btn-primary" value="Add" title="Add" />
+            <input type="submit" class="btn btn-primary" value="Edit" title="Edit" />
             @Html.ActionLink("Cancel", "Index", "Application", null, new { @class = "btn btn-success", title = "Cancel" })
         </div>
     </div>
@@ -93,19 +106,12 @@
     @Scripts.Render("~/bundles/moment")
 
     <script>
-        function getLongDateFormat() {
-            var locale = moment.localeData("@Thread.CurrentThread.CurrentCulture.Name"),
-                format;
+        $(document).ready(function () {
+            isoStringToLongDate($("#tbxApplicationDate"));
+            isoStringToLongDate($("#tbxOfferDate"));
+        });
 
-            if (!locale) {
-                locale = moment.localeData("en");
-            }
-
-            format = locale.longDateFormat("LL");
-            return format;
-        }
-
-        $("#tbxOfferDate").datepicker({
+        $("#tbxOfferDate, #tbxApplicationDate").datepicker({
             firstDay: 1,
             showWeek: true,
             beforeShow: function (input, inst) {
@@ -124,5 +130,27 @@
                 $(this).val(date.format(getLongDateFormat()));
             }
         });
+
+        function isoStringToLongDate($element) {
+            var isoString = $element.val(),
+                date;
+
+            if (isoString) {
+                date = moment(isoString, moment.ISO_8601).format(getLongDateFormat());
+                $element.val(date);
+            }
+        }
+
+        function getLongDateFormat() {
+            var locale = moment.localeData("@Thread.CurrentThread.CurrentCulture.Name"),
+                format;
+
+            if (!locale) {
+                locale = moment.localeData("en");
+            }
+
+            format = locale.longDateFormat("LL");
+            return format;
+        }
     </script>
 }

@@ -5,13 +5,18 @@
     using System.Threading;
     using AutoMapper;
 
-    public class DateTimeToLongDateStringResolver : ValueResolver<DateTime, string>
+    public class DateTimeToLongDateStringResolver : ValueResolver<DateTime?, string>
     {
-        protected override string ResolveCore(DateTime source)
+        protected override string ResolveCore(DateTime? source)
         {
-            string longDateFormat = Thread.CurrentThread.CurrentCulture.DateTimeFormat.LongDatePattern;
-            string result = source.ToString(longDateFormat, CultureInfo.InvariantCulture);
-            return result;
+            if (source != null)
+            {
+                string longDateFormat = Thread.CurrentThread.CurrentCulture.DateTimeFormat.LongDatePattern;
+                string result = ((DateTime)source).ToString(longDateFormat, CultureInfo.InvariantCulture);
+                return result;
+            }
+
+            return String.Empty;
         }
     }
 }

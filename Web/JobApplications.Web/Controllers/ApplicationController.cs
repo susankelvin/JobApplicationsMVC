@@ -95,11 +95,60 @@ namespace JobApplications.Web.Controllers
         }
 
         // GET: Edit
+        public ActionResult Edit(int id)
+        {
+            Application application = this.Data.Applications.Find(id);
+            if ((application == null) || (application.AuthorId != this.User.Identity.GetUserId()))
+            {
+                this.TempData["ErrorMessage"] = "Application not found";
+                return RedirectToAction("Index", "Application");
+            }
 
+            ApplicationEditViewModel model = new ApplicationEditViewModel();
+            Mapper.Map(application, model);
+            return View(model);
+        }
+
+        //POST: Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ApplicationEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Application application = this.Data.Applications.Find(model.ApplicationId);
+                if ((application == null) || (application.AuthorId != this.User.Identity.GetUserId()))
+                {
+                    this.TempData["ErrorMessage"] = "Application not found";
+                    return RedirectToAction("Index", "Application");
+                }
+
+                Mapper.Map(model, application);
+                if (!String.IsNullOrWhiteSpace(model.ApplicationDate) && (application.ApplicationDate == null))
+                {
+                    this.TempData["ErrorMessage"] = "Invalid application date";
+                }
+                else if (!String.IsNullOrWhiteSpace(model.OfferDate) && (application.OfferDate == null))
+                {
+                    this.TempData["ErrorMessage"] = "Invalid offer date";
+                }
+                else
+                {
+                    this.Data.Applications.Update(application);
+                    this.Data.SaveChanges();
+                    return RedirectToAction("Index", "Application");
+                }
+            }
+            else
+            {
+                this.TempData["ErrorMessage"] = "Required information is missing";
+            }
+
+            return View(model);
+        }
 
         // GET: Details
-
-
+        
 
         private ApplicationIndexViewModel FilterApplications(string search, int page)
         {
