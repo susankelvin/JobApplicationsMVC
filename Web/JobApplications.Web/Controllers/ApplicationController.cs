@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
@@ -37,8 +38,25 @@ namespace JobApplications.Web.Controllers
         // AJAX update
         public ActionResult Update(string search, int? page)
         {
+            if (!this.Request.IsAjaxRequest())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if ((page == null) || (page < 0))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             ApplicationIndexViewModel result = this.FilterApplications(search, page ?? 0);
-            return PartialView("_applicationTable", result);
+            if (result.ActivePage < result.PageCount)
+            {
+                return PartialView("_applicationTable", result);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // GET: New
@@ -76,6 +94,13 @@ namespace JobApplications.Web.Controllers
             return View(model);
         }
 
+        // GET: Edit
+
+
+        // GET: Details
+
+
+
         private ApplicationIndexViewModel FilterApplications(string search, int page)
         {
             string userId = this.User.Identity.GetUserId();
@@ -87,17 +112,30 @@ namespace JobApplications.Web.Controllers
                 query = query.Where(a => a.Position.Contains(search) || a.Company.Contains(search));
             }
 
+            int count = query.Count();
             ApplicationIndexViewModel result = new ApplicationIndexViewModel
             {
-                Count = query.Count(),
-                Page = page,
-                Items = query.OrderByDescending(a => a.ApplicationDate)
-                    .Skip(page * PAGE_SIZE)
-                    .Take(PAGE_SIZE)
-                    .Project()
-                    .To<ApplicationTableViewModel>()
-                    .ToList()
+                ActivePage = page,
+                PageCount = count / PAGE_SIZE
             };
+            if (count % PAGE_SIZE != 0)
+            {
+                result.PageCount++;
+            }
+
+            var applications = query.OrderByDescending(a => a.ApplicationDate)
+                .Skip(page * PAGE_SIZE)
+                .Take(PAGE_SIZE)
+                .ToList();
+            var resultList = new List<ApplicationTableViewModel>(applications.Count);
+            foreach (Application application in applications)
+            {
+                ApplicationTableViewModel item = new ApplicationTableViewModel();
+                Mapper.Map(application, item);
+                resultList.Add(item);
+            }
+
+            result.Items = resultList;
             return result;
         }
     }

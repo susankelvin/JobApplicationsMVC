@@ -11,7 +11,8 @@
 {
     HttpMethod = "Get",
     InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "table"
+    UpdateTargetId = "table",
+    OnFailure = "onUpdateFailure"
 }, new { id = "frmApplications", @class = "form-horizontal" }))
 {
     <div class="form-group">
@@ -45,5 +46,9 @@
             $("#frmApplications").submit();
             return false;
         });
+
+        function onUpdateFailure() {
+            $("#table").html("<div class='alert alert-danger'>Failed to retrieve data</div>");
+        }
     </script>
 }

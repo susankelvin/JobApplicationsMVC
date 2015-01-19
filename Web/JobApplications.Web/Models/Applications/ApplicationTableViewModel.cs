@@ -13,7 +13,7 @@ namespace JobApplications.Web.Models.Applications
 
         public string Company { get; set; }
 
-        public DateTime? ApplicationDate { get; set; }
+        public string ApplicationDate { get; set; }
 
         public string Notes { get; set; }
     }

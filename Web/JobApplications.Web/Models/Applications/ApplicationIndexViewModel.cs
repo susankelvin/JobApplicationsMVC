@@ -4,9 +4,9 @@
 
     public class ApplicationIndexViewModel
     {
-        public int Page { get; set; }
+        public int ActivePage { get; set; }
 
-        public int Count { get; set; }
+        public int PageCount { get; set; }
 
         public IEnumerable<ApplicationTableViewModel> Items { get; set; }
     }
