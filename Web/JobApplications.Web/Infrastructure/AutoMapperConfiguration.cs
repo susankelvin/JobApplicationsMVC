@@ -29,6 +29,12 @@
                 .ForMember(a => a.OfferDate, opt => opt.ResolveUsing<StringToDateResolver>()
                     .FromMember(a => a.OfferDate))
                 .ForMember(a => a.ApplicationId, opt => opt.UseDestinationValue());
+
+            Mapper.CreateMap<Application, ApplicationDetailsViewModel>()
+                .ForMember(a => a.ApplicationDate, opt => opt.ResolveUsing<DateTimeToLongDateStringResolver>()
+                    .FromMember(a => a.ApplicationDate))
+                .ForMember(a => a.OfferDate, opt => opt.ResolveUsing<DateTimeToLongDateStringResolver>()
+                    .FromMember(a => a.OfferDate));
         }
     }
 }

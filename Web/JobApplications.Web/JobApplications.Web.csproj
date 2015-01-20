@@ -195,6 +195,7 @@
     <Compile Include="Infrastructure\Resolvers\DateTimeToLongDateStringResolver.cs" />
     <Compile Include="Infrastructure\Resolvers\StringToDateResolver.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Applications\ApplicationDetailsViewModel.cs" />
     <Compile Include="Models\Applications\ApplicationEditViewModel.cs" />
     <Compile Include="Models\Applications\ApplicationIndexViewModel.cs" />
     <Compile Include="Models\Applications\ApplicationNewViewModel.cs" />
@@ -334,6 +335,7 @@
     <Content Include="Views\Application\Index.cshtml" />
     <Content Include="Views\Application\_applicationTable.cshtml" />
     <Content Include="Views\Application\Edit.cshtml" />
+    <Content Include="Views\Application\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

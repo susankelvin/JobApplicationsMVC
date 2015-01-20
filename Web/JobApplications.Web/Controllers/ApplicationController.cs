@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using JobApplications.Database.Data.Interfaces;
-using JobApplications.Database.Models;
-using JobApplications.Web.Controllers.Base;
-using JobApplications.Web.Models.Applications;
-using Microsoft.AspNet.Identity;
-
-
-namespace JobApplications.Web.Controllers
+﻿namespace JobApplications.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+    using AutoMapper;
+    using JobApplications.Database.Data.Interfaces;
+    using JobApplications.Database.Models;
+    using JobApplications.Web.Controllers.Base;
+    using JobApplications.Web.Models.Applications;
+    using Microsoft.AspNet.Identity;
+
     [Authorize]
     public class ApplicationController : BaseController
     {
@@ -148,7 +142,19 @@ namespace JobApplications.Web.Controllers
         }
 
         // GET: Details
-        
+        public ActionResult Details(int id)
+        {
+            Application application = this.Data.Applications.Find(id);
+            if ((application == null) || (application.AuthorId != this.User.Identity.GetUserId()))
+            {
+                this.TempData["ErrorMessage"] = "Application not found";
+                return RedirectToAction("Index", "Application");
+            }
+
+            ApplicationDetailsViewModel model = new ApplicationDetailsViewModel();
+            Mapper.Map(application, model);
+            return View(model);
+        }
 
         private ApplicationIndexViewModel FilterApplications(string search, int page)
         {

@@ -1,0 +1,86 @@
+﻿@model JobApplications.Web.Models.Applications.ApplicationDetailsViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Details";
+}
+
+<h1>Application details</h1>
+<br />
+
+<table class="table table-bordered table-striped">
+    <tbody>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Position</strong>
+            </td>
+            <td class="col-xs-10">@Model.Position</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Description</strong>
+            </td>
+            <td class="col-xs-10">@Model.Description</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Company</strong>
+            </td>
+            <td class="col-xs-10">@Model.Company</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Application date</strong>
+            </td>
+            <td class="col-xs-10">@Model.ApplicationDate</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Notes</strong>
+            </td>
+            <td class="col-xs-10">@Model.Notes</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Contacts</strong>
+            </td>
+            <td class="col-xs-10">@Model.Contacts</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Ref. No</strong>
+            </td>
+            <td class="col-xs-10">@Model.RefNo</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Offer url</strong>
+            </td>
+            <td class="col-xs-10">@Model.OfferUrl</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Company web site</strong>
+            </td>
+            <td class="col-xs-10">@Model.CompanyUrl</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Offer date</strong>
+            </td>
+            <td class="col-xs-10">@Model.OfferDate</td>
+        </tr>
+        <tr>
+            <td class="col-xs-2">
+                <strong>Result</strong>
+            </td>
+            <td class="col-xs-10">@Model.Result</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-2">
+        <a href="@Url.Action("Edit", "Application", new { id = @Model.ApplicationId })" class="btn btn-primary" title="Edit">Edit</a>
+        @Html.ActionLink("Back", "Index", "Application", new { @class = "btn btn-success", title = "Back" })
+    </div>
+</div>
