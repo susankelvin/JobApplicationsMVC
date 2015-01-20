@@ -12,7 +12,7 @@
 <h1>Edit application</h1>
 <br />
 
-@using (Html.BeginForm("Edit", "Application", FormMethod.Post, new { id = "frmEdit", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Edit", "Application", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -94,7 +94,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-10 col-md-offset-2">
-            <input type="submit" class="btn btn-primary" value="Edit" title="Edit" />
+            <input type="submit" class="btn btn-primary" value="Save" title="Save" />
             @Html.ActionLink("Cancel", "Index", "Application", null, new { @class = "btn btn-success", title = "Cancel" })
         </div>
     </div>
@@ -106,9 +106,21 @@
     @Scripts.Render("~/bundles/moment")
 
     <script>
+        var longDateFormat = (function () {
+            var locale = moment.localeData("@Thread.CurrentThread.CurrentCulture.Name"),
+                format;
+
+            if (!locale) {
+                locale = moment.localeData("en");
+            }
+
+            format = locale.longDateFormat("LL");
+            return format;
+        })();
+
         $(document).ready(function () {
-            isoStringToLongDate($("#tbxApplicationDate"));
-            isoStringToLongDate($("#tbxOfferDate"));
+            isoStringToLongDate("#tbxApplicationDate");
+            isoStringToLongDate("#tbxOfferDate");
         });
 
         $("#tbxOfferDate, #tbxApplicationDate").datepicker({
@@ -119,7 +131,7 @@
                     result = {};
 
                 if (text) {
-                    result.defaultDate = moment(text, getLongDateFormat()).format("MM/DD/YYYY");
+                    result.defaultDate = moment(text, longDateFormat).format("MM/DD/YYYY");
                 }
 
                 return result;
@@ -127,30 +139,19 @@
             onSelect: function (dateText, inst) {
                 var date = moment(dateText, "MM/DD/YYYY");
 
-                $(this).val(date.format(getLongDateFormat()));
+                $(this).val(date.format(longDateFormat));
             }
         });
 
-        function isoStringToLongDate($element) {
-            var isoString = $element.val(),
+        function isoStringToLongDate(selector) {
+            var $element = $(selector),
+                isoString = $element.val(),
                 date;
 
             if (isoString) {
-                date = moment(isoString, moment.ISO_8601).format(getLongDateFormat());
+                date = moment(isoString, moment.ISO_8601).format(longDateFormat);
                 $element.val(date);
             }
-        }
-
-        function getLongDateFormat() {
-            var locale = moment.localeData("@Thread.CurrentThread.CurrentCulture.Name"),
-                format;
-
-            if (!locale) {
-                locale = moment.localeData("en");
-            }
-
-            format = locale.longDateFormat("LL");
-            return format;
         }
     </script>
 }

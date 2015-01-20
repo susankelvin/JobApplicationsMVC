@@ -11,8 +11,8 @@
         /// <summary>
         /// Convert DateTime to string in ISO 8601 format
         /// </summary>
-        /// <param name="source">DateTime</param>
-        /// <returns>String representation of DateTime or empty string, if <see cref="source"/> is null</returns>
+        /// <param name="source">DateTime? to convert</param>
+        /// <returns>String representation of <see cref="source"/> or empty string, if <see cref="source"/> is null</returns>
         protected override string ResolveCore(DateTime? source)
         {
             if (source != null)

@@ -5,14 +5,14 @@
     using AutoMapper;
 
     /// <summary>
-    /// AutoMapper resolver from ISO date string to DateTime
+    /// AutoMapper resolver from ISO 8601 format date string to DateTime
     /// </summary>
     public class StringToDateResolver : ValueResolver<string, DateTime?>
     {
         /// <summary>
-        /// Convert ISO date string to DateTime
+        /// Convert ISO 8601 date string to DateTime
         /// </summary>
-        /// <param name="source">ISO date string</param>
+        /// <param name="source">ISO 8601 date string</param>
         /// <returns>DateTime or null, if failed to parse</returns>
         protected override DateTime? ResolveCore(string source)
         {

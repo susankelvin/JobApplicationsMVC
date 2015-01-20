@@ -12,7 +12,7 @@
 <h1>New application</h1>
 <br />
 
-@using (Html.BeginForm("New", "Application", FormMethod.Post, new { id = "frmNew", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("New", "Application", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -93,7 +93,7 @@
     @Scripts.Render("~/bundles/moment")
 
     <script>
-        function getLongDateFormat() {
+        var longDateFormat = (function () {
             var locale = moment.localeData("@Thread.CurrentThread.CurrentCulture.Name"),
                 format;
 
@@ -103,7 +103,7 @@
 
             format = locale.longDateFormat("LL");
             return format;
-        }
+        })();
 
         $("#tbxOfferDate").datepicker({
             firstDay: 1,
@@ -113,7 +113,7 @@
                     result = {};
 
                 if (text) {
-                    result.defaultDate = moment(text, getLongDateFormat()).format("MM/DD/YYYY");
+                    result.defaultDate = moment(text, longDateFormat).format("MM/DD/YYYY");
                 }
 
                 return result;
@@ -121,7 +121,7 @@
             onSelect: function (dateText, inst) {
                 var date = moment(dateText, "MM/DD/YYYY");
 
-                $(this).val(date.format(getLongDateFormat()));
+                $(this).val(date.format(longDateFormat));
             }
         });
     </script>
