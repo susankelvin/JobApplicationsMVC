@@ -78,7 +78,7 @@
                     application.AuthorId = this.User.Identity.GetUserId();
                     this.Data.Applications.Add(application);
                     this.Data.SaveChanges();
-                    return RedirectToAction("Index", "Application");
+                    return RedirectToAction("Details", "Application", new { id = application.ApplicationId });
                 }
             }
             else

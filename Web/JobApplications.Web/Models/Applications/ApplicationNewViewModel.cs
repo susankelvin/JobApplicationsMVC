@@ -6,6 +6,7 @@
     public class ApplicationNewViewModel
     {
         [Required]
+        [AllowHtml]
         public string Position { get; set; }
 
         [Required]
@@ -13,8 +14,10 @@
         public string Description { get; set; }
 
         [Required]
+        [AllowHtml]
         public string Company { get; set; }
 
+        [AllowHtml]
         [Display(Name = "Ref. No")]
         public string RefNo { get; set; }
 
@@ -26,6 +29,7 @@
         [Display(Name = "Company web site")]
         public string CompanyUrl { get; set; }
 
+        [AllowHtml]
         public string Contacts { get; set; }
 
         [Display(Name = "Offer date")]
