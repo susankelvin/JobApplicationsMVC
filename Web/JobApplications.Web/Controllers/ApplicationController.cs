@@ -9,6 +9,7 @@
     using JobApplications.Database.Data.Interfaces;
     using JobApplications.Database.Models;
     using JobApplications.Web.Controllers.Base;
+    using JobApplications.Web.Infrastructure.Filters;
     using JobApplications.Web.Models.Applications;
     using Microsoft.AspNet.Identity;
 
@@ -42,7 +43,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ApplicationIndexViewModel result = this.FilterApplications(search, page ?? 0);
+            ApplicationIndexViewModel result = this.FilterApplications(search, page.Value);
             if (result.ActivePage < result.PageCount)
             {
                 return PartialView("_applicationTable", result);
@@ -89,6 +90,7 @@
         }
 
         // GET: Edit
+        [RequiredRouteIntParam("id")]
         public ActionResult Edit(int id)
         {
             Application application = this.Data.Applications.Find(id);
@@ -142,6 +144,7 @@
         }
 
         // GET: Details
+        [RequiredRouteIntParam("id")]
         public ActionResult Details(int id)
         {
             Application application = this.Data.Applications.Find(id);

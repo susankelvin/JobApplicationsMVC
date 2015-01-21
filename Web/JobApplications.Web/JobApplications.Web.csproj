@@ -191,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AutoMapperConfiguration.cs" />
+    <Compile Include="Infrastructure\Filters\RequiredRouteIntParamAttribute.cs" />
     <Compile Include="Infrastructure\Resolvers\DateTimeToIsoStringResolver.cs" />
     <Compile Include="Infrastructure\Resolvers\DateTimeToLongDateStringResolver.cs" />
     <Compile Include="Infrastructure\Resolvers\StringToDateResolver.cs" />
