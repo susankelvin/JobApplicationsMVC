@@ -74,6 +74,13 @@
                 return View(model);
             }
 
+            ApplicationUser user = await this.UserManager.FindByNameAsync(model.UserName);
+            if ((user == null) || (String.CompareOrdinal(user.UserName, model.UserName) != 0))
+            {
+                this.TempData["ErrorMessage"] = "Username or password is invalid";
+                return View(model);
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
