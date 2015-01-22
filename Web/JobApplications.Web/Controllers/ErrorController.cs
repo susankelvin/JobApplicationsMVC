@@ -44,5 +44,16 @@
             };
             return View("BadRequest", model);
         }
+
+        // GET: NotAuthorized
+        public ActionResult NotAuthorized()
+        {
+            ErrorViewModel model = new ErrorViewModel()
+            {
+                PanelHeading = "Unauthorized",
+                PanelBody = "The requested page requires authorization."
+            };
+            return View("NotAuthorized", model);
+        }
     }
 }

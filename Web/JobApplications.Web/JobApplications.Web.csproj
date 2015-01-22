@@ -345,6 +345,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_ErrorLayout.cshtml" />
     <Content Include="Views\Error\BadRequest.cshtml" />
+    <Content Include="Views\Error\NotAuthorized.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
