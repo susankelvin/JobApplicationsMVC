@@ -1,0 +1,54 @@
+﻿@model JobApplications.Web.Models.Profile.ProfileIndexViewModel
+@{
+    ViewBag.Title = "Change Password";
+}
+
+<h1>Profile</h1>
+<br />
+
+@using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.NewPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Security precaution
+            </div>
+            <div class="panel-body">
+                Please, enter Your password to verify You are the account principal.
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.OldPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.OldPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Change password" class="btn btn-default" />
+            @Html.ActionLink("Cancel", "Index", "Application", null, new { @class = "btn btn-success" })
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
