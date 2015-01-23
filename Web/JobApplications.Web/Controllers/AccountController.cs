@@ -1,9 +1,7 @@
 ﻿namespace JobApplications.Web.Controllers
 {
     using System;
-    using System.Globalization;
     using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
