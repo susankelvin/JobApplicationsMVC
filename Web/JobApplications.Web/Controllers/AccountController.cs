@@ -5,10 +5,10 @@
     using System.Web;
     using System.Web.Mvc;
     using Database.Models;
+    using JobApplications.Web.Models.Account;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using Web.Models;
 
     [Authorize]
     public class AccountController : Controller
@@ -64,7 +64,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(AccountLoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -107,7 +107,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(AccountRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -130,7 +130,7 @@
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Application");
                 }
                 AddErrors(result);
             }
