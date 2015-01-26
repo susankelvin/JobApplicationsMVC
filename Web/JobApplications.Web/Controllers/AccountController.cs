@@ -132,7 +132,8 @@
 
                     return RedirectToAction("Index", "Application");
                 }
-                AddErrors(result);
+
+                this.TempData["ErrorMessage"] = String.Join(" ", result.Errors);
             }
 
             // If we got this far, something failed, redisplay form

@@ -7,7 +7,7 @@
     /// <summary>
     /// Action filter to check if route has parameter of type int with custom name.
     /// </summary>
-    public class RequiredRouteIntParamAttribute : FilterAttribute, IActionFilter
+    public class RequireRouteIntParamAttribute : FilterAttribute, IActionFilter
     {
         private readonly string value;
 
@@ -15,7 +15,7 @@
         /// Initializes a new instance of the RequiredRouteIntParamAttribute class with a specified name of route parameter to check for.
         /// </summary>
         /// <param name="value">Name of route parameter</param>
-        public RequiredRouteIntParamAttribute(string value)
+        public RequireRouteIntParamAttribute(string value)
         {
             if (String.IsNullOrWhiteSpace(value))
             {

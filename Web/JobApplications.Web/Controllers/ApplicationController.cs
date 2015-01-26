@@ -90,7 +90,7 @@
         }
 
         // GET: Edit
-        [RequiredRouteIntParam("id")]
+        [RequireRouteIntParam("id")]
         public ActionResult Edit(int id)
         {
             Application application = this.Data.Applications.Find(id);
@@ -144,7 +144,7 @@
         }
 
         // GET: Details
-        [RequiredRouteIntParam("id")]
+        [RequireRouteIntParam("id")]
         public ActionResult Details(int id)
         {
             Application application = this.Data.Applications.Find(id);
