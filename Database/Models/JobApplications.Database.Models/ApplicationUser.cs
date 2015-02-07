@@ -1,4 +1,6 @@
-﻿namespace JobApplications.Database.Models
+﻿using System;
+
+namespace JobApplications.Database.Models
 {
     using System.Collections.Generic;
     using System.Security.Claims;
@@ -21,6 +23,8 @@
                 this.applications = value;
             }
         }
+
+        public DateTime? LastActivity { get; set; }
 
         public ApplicationUser()
             : base()
